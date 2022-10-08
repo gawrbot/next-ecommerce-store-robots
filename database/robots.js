@@ -129,4 +129,32 @@ export const robotList = [
     price: '729',
     info: 'Elit Cubilia Ultricies Duis Curabitur Elit Porta Vulputate Aenean Interdum Mauris Maecenas Bibendum Cras Mauris Venenatis Nam Conubia Posuere Himenaeos Placerat Dapibus Pretium Consectetur.',
   },
+  {
+    id: 19,
+    name: 'Antler',
+    type: 'Deer Robot',
+    price: '444',
+    info: 'Elit Cubilia Ultricies Duis Curabitur Elit Porta Vulputate Aenean Interdum Mauris Maecenas Bibendum Cras Mauris Venenatis Nam Conubia Posuere Himenaeos Placerat Dapibus Pretium Consectetur.',
+  },
+  {
+    id: 20,
+    name: 'Funky',
+    type: 'Wild Dance Robot',
+    price: '729',
+    info: 'Elit Cubilia Ultricies Duis Curabitur Elit Porta Vulputate Aenean Interdum Mauris Maecenas Bibendum Cras Mauris Venenatis Nam Conubia Posuere Himenaeos Placerat Dapibus Pretium Consectetur.',
+  },
+  {
+    id: 21,
+    name: 'Hundl',
+    type: 'Doge Robot',
+    price: '929',
+    info: 'Elit Cubilia Ultricies Duis Curabitur Elit Porta Vulputate Aenean Interdum Mauris Maecenas Bibendum Cras Mauris Venenatis Nam Conubia Posuere Himenaeos Placerat Dapibus Pretium Consectetur.',
+  },
+  {
+    id: 22,
+    name: 'Rooibos',
+    type: 'Praying Mantis Robot',
+    price: '729',
+    info: 'Elit Cubilia Ultricies Duis Curabitur Elit Porta Vulputate Aenean Interdum Mauris Maecenas Bibendum Cras Mauris Venenatis Nam Conubia Posuere Himenaeos Placerat Dapibus Pretium Consectetur.',
+  },
 ];
