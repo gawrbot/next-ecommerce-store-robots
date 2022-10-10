@@ -1,6 +1,6 @@
 import { sql } from './connect';
 
-export type Robot = {
+type Robot = {
   id: number;
   name: string;
   type: string;
@@ -9,7 +9,7 @@ export type Robot = {
 };
 
 // Get all robots
-export async function getRobots() {
+async function getRobots() {
   const robots = await sql<Robot[]>`
     SELECT * FROM robots
   `;
@@ -17,7 +17,7 @@ export async function getRobots() {
 }
 
 // Get a single robot by id
-export async function getRobotById(id: number) {
+async function getRobotById(id: number) {
   const [robot] = await sql<Robot[]>`
     SELECT
       *
@@ -29,7 +29,7 @@ export async function getRobotById(id: number) {
   return robot;
 }
 
-export async function createRobot(
+async function createRobot(
   id: number,
   name: string,
   type: string,
@@ -46,7 +46,7 @@ export async function createRobot(
   return robot;
 }
 
-export async function updateRobotById(
+async function updateRobotById(
   id: number,
   name: string,
   type: string,
@@ -68,7 +68,7 @@ export async function updateRobotById(
   return robot;
 }
 
-export async function deleteRobotById(id: number) {
+async function deleteRobotById(id: number) {
   const [robot] = await sql<Robot[]>`
     DELETE FROM
       robots
@@ -78,3 +78,12 @@ export async function deleteRobotById(id: number) {
   `;
   return robot;
 }
+
+export {
+  createRobot,
+  deleteRobotById,
+  getRobotById,
+  getRobots,
+  type Robot,
+  updateRobotById,
+};

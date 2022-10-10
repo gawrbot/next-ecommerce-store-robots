@@ -1,10 +1,23 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { robotList } from '../database/robots';
+import { Dispatch, SetStateAction } from 'react';
+import { getRobots, Robot } from '../database/robots';
 
-export default function ShoppingCart(props) {
+type Cookie = { id: number; inCart: number };
+
+type Props = {
+  robots: Robot[];
+  cookie?: Cookie[];
+  setCookie?: Dispatch<SetStateAction<Cookie[]>>;
+};
+
+export default function ShoppingCart(props: Props) {
   const chosenRobotsCookies = props.cookie;
+
+  if (!props.robots || !chosenRobotsCookies) {
+    return <div>Nothing here yet!</div>;
+  }
 
   const chosenRobotsList = props.robots.filter((robot) => {
     return chosenRobotsCookies?.some((cookie) => {
@@ -12,14 +25,24 @@ export default function ShoppingCart(props) {
     });
   });
 
+  if (!props.robots || !chosenRobotsCookies) {
+    return <div>Nothing here yet!</div>;
+  }
+
   const allPrices = chosenRobotsList.map((robot) => {
-    const singleRobotCookieObject = props.cookie.find((singleRobot) => {
+    const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
       return singleRobot.id === robot.id;
     });
+    if (!singleRobotCookieObject) {
+      return;
+    }
     return Number(robot.price) * singleRobotCookieObject.inCart;
   });
 
   const totalPrice = allPrices?.reduce((prevPrice, currPrice) => {
+    if (!currPrice || !prevPrice) {
+      return;
+    }
     return currPrice + prevPrice;
   }, 0);
 
@@ -33,9 +56,13 @@ export default function ShoppingCart(props) {
 
       <div className="flex flex-col relative items-center">
         {chosenRobotsList.map((robot) => {
-          const singleRobotCookieObject = props.cookie.find((singleRobot) => {
+          const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
             return singleRobot.id === robot.id;
           });
+
+          if (!singleRobotCookieObject) {
+            return;
+          }
 
           const priceForRobotAmount =
             Number(robot.price) * singleRobotCookieObject.inCart;
@@ -75,13 +102,13 @@ export default function ShoppingCart(props) {
                     // Minus Button
                     onClick={() => {
                       if (singleRobotCookieObject.inCart > 0) {
-                        const newState = [...props.cookie];
+                        const newState: Cookie[] = [...props.cookie];
                         singleRobotCookieObject.inCart--;
-                        props.setCookie(newState);
-                      } else if (robot.inCart < 0) {
-                        const newState = [...props.cookie];
+                        props.setCookie?.(newState);
+                      } else if (singleRobotCookieObject.inCart < 0) {
+                        const newState: Cookie[] = [...props.cookie];
                         singleRobotCookieObject.inCart = 0;
-                        props.setCookie(newState);
+                        props.setCookie?.(newState);
                       }
                     }}
                     className="inline-block px-3 py-1 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -102,9 +129,9 @@ export default function ShoppingCart(props) {
                   <button
                     // Plus Button
                     onClick={() => {
-                      const newState = [...props.cookie];
+                      const newState: Cookie[] = [...props.cookie];
                       singleRobotCookieObject.inCart++;
-                      props.setCookie(newState);
+                      props.setCookie?.(newState);
                     }}
                     className="inline-block px-3 py-1 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
                   >
@@ -113,9 +140,9 @@ export default function ShoppingCart(props) {
                   <button
                     data-test-id={`cart-product-remove-${robot.id}`}
                     onClick={() => {
-                      const newState = [...props.cookie];
+                      const newState: Cookie[] = [...props.cookie];
                       singleRobotCookieObject.inCart = 0;
-                      props.setCookie(newState);
+                      props.setCookie?.(newState);
                       console.log(newState);
                     }}
                     className="inline-block px-2 ml-3 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
@@ -152,10 +179,13 @@ export default function ShoppingCart(props) {
   );
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps(): Promise<
+  import('next').GetServerSidePropsResult<Props>
+> {
+  const robots = await getRobots();
   return {
     props: {
-      robots: robotList,
+      robots: robots,
     },
   };
 }

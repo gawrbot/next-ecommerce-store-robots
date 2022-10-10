@@ -1,11 +1,16 @@
+import { GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { userContext } from '../../components/UserContext';
-import { robotList } from '../../database/robots';
+import { getRobots, Robot } from '../../database/robots';
 
-export default function Robots(props) {
+type Props = {
+  robots: Robot[];
+};
+
+export default function Robots(props: Props) {
   // Define property 'scrollRef' of context object as variable
   const { scrollRef } = useContext(userContext);
 
@@ -59,10 +64,13 @@ export default function Robots(props) {
   );
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps(): Promise<
+  GetServerSidePropsResult<Props>
+> {
+  const robots = await getRobots();
   return {
     props: {
-      robots: robotList,
+      robots: robots,
     },
   };
 }

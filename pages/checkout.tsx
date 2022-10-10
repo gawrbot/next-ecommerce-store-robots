@@ -1,25 +1,45 @@
+import { GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { robotList } from '../database/robots';
+import { Dispatch, SetStateAction } from 'react';
+import { getRobots, Robot } from '../database/robots';
 
-export default function Checkout(props) {
+type Cookie = { id: number; inCart: number };
+
+type Props = {
+  robots: Robot[];
+  cookie?: Cookie[];
+  setCookie?: Dispatch<SetStateAction<Cookie[]>>;
+};
+
+export default function Checkout(props: Props) {
   const chosenRobotsCookies = props.cookie;
 
+  if (!props.robots || !chosenRobotsCookies) {
+    return <div>Nothing here yet!</div>;
+  }
+
   const chosenRobotsList = props.robots.filter((robot) => {
-    return chosenRobotsCookies?.some((cookie) => {
-      return cookie.id === robot.id && cookie.inCart > 0;
+    return chosenRobotsCookies.some((cookie) => {
+      return cookie?.id === robot.id && cookie.inCart > 0;
     });
   });
 
-  // How to get access to priceForSingleRobotInCart and add them together??
   const allPrices = chosenRobotsList.map((robot) => {
-    const singleRobotCookieObject = props.cookie.find((singleRobot) => {
-      return singleRobot.id === robot.id;
+    const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
+      return singleRobot?.id === robot.id;
     });
-    return Number(robot.price) * singleRobotCookieObject.inCart;
+    if (!singleRobotCookieObject) {
+      return;
+    }
+    const price = Number(robot.price) * singleRobotCookieObject.inCart;
+    return price;
   });
 
-  const totalPrice = allPrices?.reduce((prevPrice, currPrice) => {
+  const totalPrice = allPrices.reduce((prevPrice, currPrice) => {
+    if (!currPrice || !prevPrice) {
+      return;
+    }
     return currPrice + prevPrice;
   }, 0);
 
@@ -33,9 +53,13 @@ export default function Checkout(props) {
       <div className="flex flex-col items-center">
         <h2>Order Overview</h2>
         {chosenRobotsList.map((robot) => {
-          const singleRobotCookieObject = props.cookie.find((singleRobot) => {
+          const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
             return singleRobot.id === robot.id;
           });
+
+          if (!singleRobotCookieObject) {
+            return;
+          }
 
           const priceForRobotAmount =
             Number(robot.price) * singleRobotCookieObject.inCart;
@@ -166,8 +190,8 @@ export default function Checkout(props) {
         <Link href="/thankyou">
           <button
             onClick={() => {
-              const newState = [];
-              props.setCookie(newState);
+              const newState: [] = [];
+              props.setCookie?.(newState);
             }}
             className="flex items-end px-3 py-1 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
           >
@@ -179,10 +203,13 @@ export default function Checkout(props) {
   );
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps(): Promise<
+  GetServerSidePropsResult<Props>
+> {
+  const robots = await getRobots();
   return {
     props: {
-      robots: robotList,
+      robots: robots,
     },
   };
 }

@@ -1,27 +1,25 @@
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { robotList } from '../../database/robots';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { getRobotById, Robot } from '../../database/robots';
+import { parseIntFromContextQuery } from '../../utils/contextQuery';
 
-export default function Robot(props) {
-  const [quantity, setQuantity] = useState();
+type Cookie = { id: number; inCart: number };
 
-  // Get the Cookie Object for the robot with the same id
-  const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-    return singleRobot.id === props.robot.id;
-  });
-
-  useEffect(() => {
-    if (singleRobotCookieObject) {
-      setQuantity(singleRobotCookieObject.inCart);
-    } else {
-      setQuantity(0);
+type Props =
+  | {
+      error: string;
     }
-  }, [singleRobotCookieObject]);
+  | {
+      robot: Robot;
+      cookie?: Cookie[];
+      setCookie?: Dispatch<SetStateAction<Cookie[]>>;
+    };
 
-  // If there is no robot with the id passed in the URL, show error page
-  if (props.error) {
+export default function SingleRobot(props: Props) {
+  if ('error' in props) {
     return (
       <div className="flex flex-col items-center">
         <Head>
@@ -40,6 +38,23 @@ export default function Robot(props) {
       </div>
     );
   }
+
+  const [quantity, setQuantity] = useState(Number);
+
+  // Get the Cookie Object for the robot with the same id
+  const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
+    return singleRobot.id === props.robot.id;
+  });
+
+  useEffect(() => {
+    if (singleRobotCookieObject) {
+      setQuantity(singleRobotCookieObject.inCart);
+    } else {
+      setQuantity(0);
+    }
+  }, [singleRobotCookieObject]);
+
+  // If there is no robot with the id passed in the URL, show error page
 
   // If it exists, render the robot with the correct id
   return (
@@ -106,17 +121,17 @@ export default function Robot(props) {
               onClick={() => {
                 if (!props.cookie) {
                   const newState = [{ id: props.robot.id, inCart: quantity }];
-                  props.setCookie(newState);
+                  props.setCookie?.(newState);
                 } else if (!singleRobotCookieObject) {
                   const newState = [
                     ...props.cookie,
                     { id: props.robot.id, inCart: quantity },
                   ];
-                  props.setCookie(newState);
+                  props.setCookie?.(newState);
                 } else {
                   const newState = [...props.cookie];
                   singleRobotCookieObject.inCart = quantity;
-                  props.setCookie(newState);
+                  props.setCookie?.(newState);
                 }
               }}
               className="inline-block px-2 ml-5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
@@ -130,13 +145,21 @@ export default function Robot(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  // Get the right robot from the "database"
-  const robotId = parseInt(context.params.robotId);
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<import('next').GetServerSidePropsResult<Props>> {
+  const robotId = parseIntFromContextQuery(context.query.robotId);
 
-  const foundRobot = robotList.find((robot) => {
-    return robot.id === robotId;
-  });
+  if (typeof robotId === 'undefined') {
+    context.res.statusCode = 404;
+    return {
+      props: {
+        error: 'Robot not found',
+      },
+    };
+  }
+
+  const foundRobot = await getRobotById(robotId);
 
   if (typeof foundRobot === 'undefined') {
     context.res.statusCode = 404;
