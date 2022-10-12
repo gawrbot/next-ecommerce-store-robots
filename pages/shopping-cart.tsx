@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import { getRobots, Robot } from '../database/robots';
 
@@ -14,9 +15,23 @@ type Props = {
 
 export default function ShoppingCart(props: Props) {
   const chosenRobotsCookies = props.cookie;
+  const router = useRouter();
 
   if (!props.robots || !chosenRobotsCookies) {
-    return <div>Nothing here yet!</div>;
+    return (
+      <div>
+        <h1 className="text-5xl font-bold mt-0 mb-6">Shopping Cart</h1>
+        <div>
+          Nothing here yet - see the{' '}
+          <span className="underline decoration-solid">
+            <Link href="/robots" scroll={false}>
+              all robots
+            </Link>
+          </span>{' '}
+          page
+        </div>
+      </div>
+    );
   }
 
   const chosenRobotsList = props.robots.filter((robot) => {
@@ -26,7 +41,12 @@ export default function ShoppingCart(props: Props) {
   });
 
   if (!props.robots || !chosenRobotsCookies) {
-    return <div>Nothing here yet!</div>;
+    return (
+      <div>
+        <h1 className="text-5xl font-bold mt-0 mb-6">Checkout</h1>
+        <div>Nothing here yet!</div>
+      </div>
+    );
   }
 
   const allPrices = chosenRobotsList.map((robot) => {
@@ -166,14 +186,15 @@ export default function ShoppingCart(props: Props) {
           </div>
         </div>
 
-        <Link href="/checkout">
-          <a
-            data-test-id="cart-checkout"
-            className="flex items-end px-3 py-1 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-          >
-            Checkout
-          </a>
-        </Link>
+        <button
+          onClick={() => {
+            router.push('/checkout');
+          }}
+          data-test-id="cart-checkout"
+          className="flex items-end px-3 py-1 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+        >
+          Checkout
+        </button>
       </div>
     </>
   );

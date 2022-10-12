@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex flex-col items-center">
       <Head>
         <title>Welcome</title>
-        <meta name="description" content="Welcome to the online shop" />
+        <meta name="description" content="Welcome page of the robot shop" />
       </Head>
       <h1 className="text-7xl font-bold mt-0 mb-10 font-nabla text-center">
         Welcome to Robot World

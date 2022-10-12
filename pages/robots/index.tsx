@@ -11,23 +11,22 @@ type Props = {
 };
 
 export default function Robots(props: Props) {
-  // Define property 'scrollRef' of context object as variable
+  // Get 'current' object and fill it with userContext
   const { scrollRef } = useContext(userContext);
 
-  // EXPLAIN MYSELF UNTIL END OF USEeFFECT HOOK
   useEffect(() => {
-    // called when the component has been mounted, sets the scroll to the currently stored scroll position
+    // sets the scroll to the currently stored scroll position (works when 'Back to all robots' is clicked bc. 'scroll' is set to 'false' in the link)
     window.scrollTo(0, scrollRef.current.scrollPos);
 
+    // update the scroll position on change (called in listener for the event 'scroll')
     const handleScrollPos = () => {
-      // every time the window is scrolled, update the reference. This will not cause a re-render, meaning smooth uninterrupted scrolling.
       scrollRef.current.scrollPos = window.scrollY;
     };
 
     window.addEventListener('scroll', handleScrollPos);
 
+    // cleanup function to remove event listener again to prevent side effects
     return () => {
-      // remove event listener on unmount
       window.removeEventListener('scroll', handleScrollPos);
     };
   });
@@ -35,10 +34,11 @@ export default function Robots(props: Props) {
   return (
     <>
       <Head>
-        <title>All Robots</title>
-        <meta name="description" content="all robots" />
+        <title>All our Robots</title>
+        <meta name="description" content="Page with all available robots" />
       </Head>
-      <h1 className="text-5xl font-bold mt-0 mb-6">All Robots</h1>
+      <h1 className="text-5xl font-bold mt-0 mb-6">All our Robots</h1>
+      {/* div container for all robots which are mapped over inside it */}
       <div className="grid grid-cols-4 gap-5">
         {props.robots.map((robot) => {
           return (
@@ -64,6 +64,7 @@ export default function Robots(props: Props) {
   );
 }
 
+// Get the robots from the database in the backend
 export async function getServerSideProps(): Promise<
   GetServerSidePropsResult<Props>
 > {
