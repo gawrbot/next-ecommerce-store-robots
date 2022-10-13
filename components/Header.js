@@ -19,9 +19,9 @@ export default function Header(props) {
         </div>
         <div className="relative">
           <Link
+            data-test-id="products-link"
             href="/robots"
             className="text-gray-600 hover:text-gray-700 transition duration-150 ease-in-out"
-            data-test-id="products-link"
           >
             Our Robots
           </Link>

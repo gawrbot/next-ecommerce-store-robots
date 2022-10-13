@@ -12,6 +12,8 @@ It has a homepage greeting the customers. In the header is a nav bar with a shop
 
 ![Ecommerce mockup](./Mockup_EcommerceStore.png)
 
+### Description: Walkthrough
+
 ### From Homepage to Our robots
 
 When you navigate to 'Our robots' in the header, you see a grid, including all the available robots and their names (coming from a postgres database). On clicking on a robot, you will be directed to the page of the chosen robot (a dynamic route, defined as the id from the database).
