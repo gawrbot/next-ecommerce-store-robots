@@ -7,6 +7,7 @@ export default function Layout(props) {
     <>
       <Head>
         <link rel="icon" href="robot-icon-c-freepik.png" />
+        <meta name="description" content="Layout of robot shop" />
       </Head>
       {/* Passing cookie info to header as props */}
       <Header cookie={props.cookie} />

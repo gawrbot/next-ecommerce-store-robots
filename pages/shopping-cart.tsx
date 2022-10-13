@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import { getRobots, Robot } from '../database/robots';
 
-type Cookie = { id: number; inCart: number };
+type Cookie = { id: number; inCart: number } | undefined;
 
 type Props = {
   robots: Robot[];
@@ -20,6 +20,10 @@ export default function ShoppingCart(props: Props) {
   if (!props.robots || !chosenRobotsCookies) {
     return (
       <div>
+        <Head>
+          <title>Shopping cart empty</title>
+          <meta name="description" content="Empty shopping Cart page" />
+        </Head>
         <h1 className="text-5xl font-bold mt-0 mb-6">Shopping Cart</h1>
         <div>
           Nothing here yet - see the{' '}
@@ -36,7 +40,7 @@ export default function ShoppingCart(props: Props) {
 
   const chosenRobotsList = props.robots.filter((robot) => {
     return chosenRobotsCookies?.some((cookie) => {
-      return cookie.id === robot.id && cookie.inCart > 0;
+      return cookie?.id === robot.id && cookie.inCart > 0;
     });
   });
 
@@ -51,7 +55,7 @@ export default function ShoppingCart(props: Props) {
 
   const allPrices = chosenRobotsList.map((robot) => {
     const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-      return singleRobot.id === robot.id;
+      return singleRobot?.id === robot.id;
     });
     if (!singleRobotCookieObject) {
       return;
@@ -70,14 +74,14 @@ export default function ShoppingCart(props: Props) {
     <>
       <Head>
         <title>Your Shopping Cart</title>
-        <meta name="description" content="Find your chosen products here" />
+        <meta name="description" content="Shopping Cart page" />
       </Head>
       <h1 className="text-5xl font-bold mt-0 mb-6">Your Shopping Cart</h1>
 
       <div className="flex flex-col relative items-center">
         {chosenRobotsList.map((robot) => {
           const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-            return singleRobot.id === robot.id;
+            return singleRobot?.id === robot.id;
           });
 
           if (!singleRobotCookieObject) {
@@ -122,13 +126,17 @@ export default function ShoppingCart(props: Props) {
                     // Minus Button
                     onClick={() => {
                       if (singleRobotCookieObject.inCart > 0) {
-                        const newState: Cookie[] = [...props.cookie];
-                        singleRobotCookieObject.inCart--;
-                        props.setCookie?.(newState);
+                        if (Array.isArray(props.cookie)) {
+                          const newState: Cookie[] = [...props.cookie];
+                          singleRobotCookieObject.inCart--;
+                          return props.setCookie?.(newState);
+                        }
                       } else if (singleRobotCookieObject.inCart < 0) {
-                        const newState: Cookie[] = [...props.cookie];
-                        singleRobotCookieObject.inCart = 0;
-                        props.setCookie?.(newState);
+                        if (Array.isArray(props.cookie)) {
+                          const newState: Cookie[] = [...props.cookie];
+                          singleRobotCookieObject.inCart = 0;
+                          props.setCookie?.(newState);
+                        }
                       }
                     }}
                     className="inline-block px-3 py-1 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -149,9 +157,11 @@ export default function ShoppingCart(props: Props) {
                   <button
                     // Plus Button
                     onClick={() => {
-                      const newState: Cookie[] = [...props.cookie];
-                      singleRobotCookieObject.inCart++;
-                      props.setCookie?.(newState);
+                      if (Array.isArray(props.cookie)) {
+                        const newState: Cookie[] = [...props.cookie];
+                        singleRobotCookieObject.inCart++;
+                        props.setCookie?.(newState);
+                      }
                     }}
                     className="inline-block px-3 py-1 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
                   >
@@ -160,10 +170,12 @@ export default function ShoppingCart(props: Props) {
                   <button
                     data-test-id={`cart-product-remove-${robot.id}`}
                     onClick={() => {
-                      const newState: Cookie[] = [...props.cookie];
-                      singleRobotCookieObject.inCart = 0;
-                      props.setCookie?.(newState);
-                      console.log(newState);
+                      if (Array.isArray(props.cookie)) {
+                        const newState: Cookie[] = [...props.cookie];
+                        singleRobotCookieObject.inCart = 0;
+                        props.setCookie?.(newState);
+                        console.log(newState);
+                      }
                     }}
                     className="inline-block px-2 ml-3 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
                   >

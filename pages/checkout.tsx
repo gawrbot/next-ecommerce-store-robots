@@ -32,6 +32,10 @@ export default function Checkout(props: Props) {
   if (!props.robots || !chosenRobotsCookies) {
     return (
       <div>
+        <Head>
+          <title>Checkout empty</title>
+          <meta name="description" content="Empty checkout page" />
+        </Head>
         <h1 className="text-5xl font-bold mt-0 mb-6">Checkout</h1>
         <div>
           Nothing here yet - see the{' '}
@@ -74,7 +78,7 @@ export default function Checkout(props: Props) {
     <>
       <Head>
         <title>Checkout</title>
-        <meta name="description" content="Confirm your order here" />
+        <meta name="description" content="Checkout page" />
       </Head>
       <h1 className="text-5xl font-bold mt-0 mb-6">Checkout</h1>
       <div className="flex flex-col items-center">

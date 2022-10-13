@@ -5,7 +5,7 @@ export default function Home() {
     <div className="flex flex-col items-center">
       <Head>
         <title>Thank you for your order</title>
-        <meta name="description" content="Thank you" />
+        <meta name="description" content="Thank you page" />
       </Head>
       <h1 className="text-7xl font-bold mt-0 mb-10 font-nabla text-center">
         Thank you for your order!

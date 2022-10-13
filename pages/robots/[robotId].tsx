@@ -63,7 +63,7 @@ export default function SingleRobot(props: Props) {
         <title>{props.robot.name}</title>
         <meta
           name="description"
-          content={`the page of ${props.robot.name}, the ${props.robot.type}`}
+          content={`Page of ${props.robot.name}, the ${props.robot.type}`}
         />
       </Head>
 
