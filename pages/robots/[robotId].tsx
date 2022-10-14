@@ -161,7 +161,7 @@ export async function getServerSideProps(
   // Get the number from the dynamic route (the function parseIntFromContextQuery is imported from utils)
   const robotId = await parseIntFromContextQuery(context.query.robotId);
 
-  if (typeof robotId === 'string' || typeof robotId === 'undefined') {
+  if (Number.isNaN(robotId)) {
     context.res.statusCode = 404;
     return {
       props: {
@@ -171,7 +171,7 @@ export async function getServerSideProps(
   }
 
   // If the robotId is a number, try to get the robot from the database
-  const foundRobot = await getRobotById(robotId);
+  const foundRobot = await getRobotById(Number(robotId));
 
   if (typeof foundRobot === 'undefined') {
     context.res.statusCode = 404;

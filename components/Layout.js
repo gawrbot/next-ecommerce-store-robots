@@ -12,7 +12,9 @@ export default function Layout(props) {
       {/* Passing cookie info to header as props */}
       <Header cookie={props.cookie} />
 
-      <main className="px-10 py-10 font-fredoka">{props.children}</main>
+      <main className="px-10 py-10 font-fredoka bg-cyan-900">
+        {props.children}
+      </main>
 
       <Footer />
     </>
