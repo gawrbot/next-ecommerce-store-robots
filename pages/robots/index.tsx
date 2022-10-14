@@ -39,7 +39,7 @@ export default function Robots(props: Props) {
       </Head>
       <h1 className="text-5xl font-bold mt-0 mb-6">All our Robots</h1>
       {/* div container for all robots which are mapped over inside it */}
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-5">
         {props.robots.map((robot) => {
           return (
             <Link
@@ -47,14 +47,16 @@ export default function Robots(props: Props) {
               key={robot.id}
               data-test-id={`product-${robot.id}`}
             >
-              <div className="bg-indigo-500 rounded-lg px-3 py-3 flex flex-col items-center justify-center hover:cursor-pointer">
+              <div className="bg-indigo-500 rounded-lg px-3 py-7 flex flex-col items-center justify-center hover:cursor-pointer">
                 <Image
                   src={`/${robot.id}-${robot.name}.png`}
                   alt=""
-                  width="150"
-                  height="150"
+                  width="350"
+                  height="350"
                 />
-                <h2 className="text-xl font-bold text-white">{robot.name}</h2>
+                <h2 className="text-3xl font-bold text-white pt-7">
+                  {robot.name}
+                </h2>
               </div>
             </Link>
           );

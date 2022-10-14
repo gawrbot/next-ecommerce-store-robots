@@ -17,25 +17,26 @@ export default function Header(props) {
             Home
           </Link>
         </div>
-        <div className="relative">
-          <Link
-            data-test-id="products-link"
-            href="/robots"
-            className="text-gray-600 hover:text-gray-700 transition duration-150 ease-in-out"
-          >
-            Our Robots
-          </Link>
-        </div>
-        <div className="absolute right-12 top-5 w-10 h-10 hover:cursor-pointer">
-          <Link href="/shopping-cart">
+        <Link
+          href="/robots"
+          className="text-gray-600 hover:text-gray-700 transition duration-150 ease-in-out"
+        >
+          <a data-test-id="products-link">
+            <div className="relative">Our Robots </div>
+          </a>
+        </Link>
+        <Link href="/shopping-cart">
+          <div className="absolute right-12 top-5 w-10 h-10 hover:cursor-pointer">
             <img alt="robot icon" src="/robot-icon-c-freepik.png" />
-          </Link>
-        </div>
-        <div className="absolute right-9 top-9 flex items-center justify-center rounded-full px-2 py-2 bg-indigo-500/[.85] text-white hover:cursor-pointer w-8 h-8">
-          <Link data-test-id="cart-link" href="/shopping-cart">
-            <span data-test-id="cart-count">{robotsInCart}</span>
-          </Link>
-        </div>
+          </div>
+        </Link>
+        <Link href="/shopping-cart">
+          <a data-test-id="cart-link">
+            <div className="absolute right-9 top-9 flex items-center justify-center rounded-full px-2 py-2 bg-indigo-500/[.85] text-white hover:cursor-pointer w-8 h-8">
+              <span data-test-id="cart-count">{robotsInCart}</span>
+            </div>
+          </a>
+        </Link>
       </nav>
     </header>
   );

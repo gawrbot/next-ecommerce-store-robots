@@ -67,7 +67,8 @@ export default function SingleRobot(props: Props) {
         />
       </Head>
 
-      <h1 className="text-5xl font-bold mt-0 mb-6">{props.robot.name}</h1>
+      <h1 className="text-5xl font-bold mt-0">{props.robot.name}</h1>
+      <div className="text-xs mb-4">Id: {props.robot.id}</div>
       {/* Back Button to the robot page -> 'scroll' is set to 'false' so that the 'all robots page' is in the same scroll position again when coming back to it from a single robot */}
       <div className="underline decoration-solid">
         <Link href="/robots" scroll={false}>
@@ -75,7 +76,7 @@ export default function SingleRobot(props: Props) {
         </Link>
       </div>
       {/* div container for the robot that has been found by id in the backend down below */}
-      <div className="flex flex-row gap-5 mt-5">
+      <div className="grid gap-5 mt-5">
         <Image
           src={`/${props.robot.id}-${props.robot.name}.png`}
           alt={`/${props.robot.name}, the ${props.robot.type}`}
@@ -87,7 +88,7 @@ export default function SingleRobot(props: Props) {
         <div className="basis-1/3 font-noto">
           <div>Type: {props.robot.type}</div>
           <div data-test-id="product-price">Price: {props.robot.price} €</div>
-          <div>Id: {props.robot.id}</div>
+
           <div>Info: {props.robot.info}</div>
           {/* Update the quantity: minus */}
           <div>
