@@ -42,22 +42,20 @@ export default function Robots(props: Props) {
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-5">
         {props.robots.map((robot) => {
           return (
-            <Link
-              href={`/robots/${robot.id}`}
-              key={robot.id}
-              data-test-id={`product-${robot.id}`}
-            >
-              <div className="bg-pink-600 rounded-lg px-3 py-7 flex flex-col items-center justify-center hover:cursor-pointer">
-                <Image
-                  src={`/${robot.id}-${robot.name}.png`}
-                  alt=""
-                  width="350"
-                  height="350"
-                />
-                <h2 className="text-3xl font-bold text-white pt-7">
-                  {robot.name}
-                </h2>
-              </div>
+            <Link href={`/robots/${robot.id}`} key={robot.id}>
+              <a data-test-id={`product-${robot.id}`}>
+                <div className="bg-pink-600 rounded-lg px-3 py-7 flex flex-col items-center justify-center hover:cursor-pointer">
+                  <Image
+                    src={`/${robot.id}-${robot.name}.png`}
+                    alt=""
+                    width="350"
+                    height="350"
+                  />
+                  <h2 className="text-3xl font-bold text-white pt-7">
+                    {robot.name}
+                  </h2>
+                </div>
+              </a>
             </Link>
           );
         })}

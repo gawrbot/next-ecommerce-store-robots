@@ -198,10 +198,9 @@ export default function ShoppingCart(props: Props) {
             onClick={() => {
               router.push('/checkout');
             }}
-            data-test-id="cart-checkout"
             className="bg-green-700 font-medium text-white text-xs p-3 leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out"
           >
-            Checkout
+            <a data-test-id="cart-checkout">Checkout</a>
           </button>
         </div>
       </div>

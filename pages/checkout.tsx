@@ -244,6 +244,7 @@ export default function Checkout(props: Props) {
             </label>
           </div>
           <button
+            data-test-id="checkout-confirm-order"
             disabled={
               !(
                 firstName &&
