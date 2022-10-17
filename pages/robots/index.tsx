@@ -47,7 +47,7 @@ export default function Robots(props: Props) {
               key={robot.id}
               data-test-id={`product-${robot.id}`}
             >
-              <div className="bg-indigo-500 rounded-lg px-3 py-7 flex flex-col items-center justify-center hover:cursor-pointer">
+              <div className="bg-pink-600 rounded-lg px-3 py-7 flex flex-col items-center justify-center hover:cursor-pointer">
                 <Image
                   src={`/${robot.id}-${robot.name}.png`}
                   alt=""

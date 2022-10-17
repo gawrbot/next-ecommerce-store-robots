@@ -8,11 +8,12 @@ export default function Home() {
         <title>Welcome</title>
         <meta name="description" content="Welcome page of the robot shop" />
       </Head>
-      <h1 className="text-7xl font-bold mt-0 mb-10 font-nabla text-center">
-        Welcome to Robot World
+      <h1 className="text-7xl text-pink-600 font-bold mt-0 mb-10 font-silkscreen text-center">
+        Welcome to <span className="text-slate-500">Robot</span> World
       </h1>
+
       <Image
-        src="/robot-icon-c-freepik.png"
+        src="/robot (1).png"
         alt="Red and yellow robot in iconstyle"
         width={300}
         height={300}

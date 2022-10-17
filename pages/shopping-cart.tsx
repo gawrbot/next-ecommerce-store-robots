@@ -62,13 +62,13 @@ export default function ShoppingCart(props: Props) {
     }
     return Number(robot.price) * singleRobotCookieObject.inCart;
   });
+  console.log(allPrices);
 
-  const totalPrice = allPrices?.reduce((prevPrice, currPrice) => {
-    if (!currPrice || !prevPrice) {
-      return;
-    }
-    return currPrice + prevPrice;
+  const totalPrice = allPrices.reduce((prevPrice, currPrice) => {
+    return Number(currPrice) + Number(prevPrice);
   }, 0);
+
+  console.log(totalPrice);
 
   return (
     <>

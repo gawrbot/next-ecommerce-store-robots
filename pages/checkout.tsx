@@ -68,10 +68,7 @@ export default function Checkout(props: Props) {
   });
 
   const totalPrice = allPrices.reduce((prevPrice, currPrice) => {
-    if (!currPrice || !prevPrice) {
-      return;
-    }
-    return currPrice + prevPrice;
+    return Number(currPrice) + Number(prevPrice);
   }, 0);
 
   return (
@@ -125,124 +122,126 @@ export default function Checkout(props: Props) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center">
-        <h2>Shipping Address</h2>
+
+      {/* FORM */}
+      <div className="grid grid-cols-2 p-6 rounded-lg shadow-lg border-solid border-2 max-w-sm">
         <form
-          className="flex flex-col"
+          className=""
           onSubmit={(event) => {
             event.preventDefault();
           }}
         >
-          <div className="inline-flex relative w-1/2 border border-2 border-solid rounded-lg px-2 py-3 mb-5">
-            <label>
+          <h2 className="text-2xl mb-5">Shipping Address</h2>
+          <div className="form-group mb-6">
+            <label className="form-label inline-block mb-2">
               First Name
               <input
                 data-test-id="checkout-first-name"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={firstName}
                 onChange={(event) => {
                   setFirstName(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+
+            <label className="form-label inline-block mb-2">
               Last Name
               <input
                 data-test-id="checkout-last-name"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={lastName}
                 onChange={(event) => {
                   setLastName(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+            <label className="form-label inline-block mb-2">
               E-Mail
               <input
                 data-test-id="checkout-email"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={email}
                 onChange={(event) => {
                   setEmail(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+            <label className="form-label inline-block mb-2">
               Address
               <input
                 data-test-id="checkout-address"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={address}
                 onChange={(event) => {
                   setAddress(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+            <label className="form-label inline-block mb-2">
               Postal Code
               <input
                 data-test-id="checkout-postal-code"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={postalCode}
                 onChange={(event) => {
                   setPostalCode(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+            <label className="form-label inline-block mb-2">
               City
               <input
                 data-test-id="checkout-city"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={city}
                 onChange={(event) => {
                   setCity(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+            <label className="form-label inline-block mb-2">
               Country
               <input
                 data-test-id="checkout-country"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={country}
                 onChange={(event) => {
                   setCountry(event.currentTarget.value);
                 }}
               />
             </label>
-            {/* </form> */}
           </div>
 
-          <h2>Payment Info</h2>
-          <div className="inline-flex relative w-1/2 border border-2 border-solid rounded-lg px-2 py-3 mb-5">
-            <label>
+          <h2 className="text-2xl mb-5">Payment Info</h2>
+          <div className="form-group mb-6">
+            <label className="form-label inline-block mb-2">
               Credit Card
               <input
                 data-test-id="checkout-credit-card"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={creditCard}
                 onChange={(event) => {
                   setCreditCard(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+            <label className="form-label inline-block mb-2">
               Expiration Date
               <input
                 data-test-id="checkout-expiration-date"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={expirationDate}
                 onChange={(event) => {
                   setExpirationDate(event.currentTarget.value);
                 }}
               />
             </label>
-            <label>
+            <label className="form-label inline-block mb-2">
               Security Code{' '}
               <input
                 data-test-id="checkout-security-code"
-                className="font-noto ml-3 mb-3 border border-2 border-solid"
+                className="font-noto text-black form-control block w-full px-3 py-1.5 text-base font-normal bg-clip-padding border border-solid border-gray-300 rounded"
                 value={securityCode}
                 onChange={(event) => {
                   setSecurityCode(event.currentTarget.value);
@@ -273,7 +272,7 @@ export default function Checkout(props: Props) {
               deleteCookie('cart');
               router.push('/thankyou');
             }}
-            className="flex items-end px-3 py-1 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md disabled:opacity-75 hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+            className="bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md disabled:opacity-75 hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
           >
             Confirm Order
           </button>
