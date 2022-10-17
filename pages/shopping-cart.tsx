@@ -78,26 +78,24 @@ export default function ShoppingCart(props: Props) {
       </Head>
       <h1 className="text-5xl font-bold mt-0 mb-6">Your Shopping Cart</h1>
 
-      <div className="flex flex-col relative items-center">
+      {/* CHOSEN ROBOTS */}
+      <div className="grid justify-items-start">
         {chosenRobotsList.map((robot) => {
           const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
             return singleRobot?.id === robot.id;
           });
-
           if (!singleRobotCookieObject) {
             return;
           }
-
           const priceForRobotAmount =
             Number(robot.price) * singleRobotCookieObject.inCart;
-
           return (
             <div
               key={robot.id}
               data-test-id={`cart-product-${robot.id}`}
-              className="inline-flex relative w-1/2 border border-2 border-solid rounded-lg px-2 py-3 mb-5"
+              className="grid grid-cols-3 gap-3 p-4 rounded-lg shadow-lg border-solid border-2 mb-7"
             >
-              <div className="flex mr-4 mb-0">
+              <div>
                 <Link href={`/robots/${robot.id}`}>
                   <Image
                     src={`/${robot.id}-${robot.name}.png`}
@@ -109,19 +107,16 @@ export default function ShoppingCart(props: Props) {
                 </Link>
               </div>
 
-              <div className="font-noto mr-2 py-2 pl-3">
+              <div className="inline-grid font-noto py-2">
                 <Link href={`/robots/${robot.id}`}>
                   <h2 className="text-xl font-bold font-fredoka hover:cursor-pointer">
                     {robot.name}
                   </h2>
                 </Link>
                 <div className="text-xs">Id: {robot.id}</div>
-                <div className=" pt-2">Type: {robot.type}</div>
 
                 {/* Updating Cookie Info  */}
                 <div>
-                  <p className="font-bold pt-2">Change quantity</p>
-
                   <button
                     // Minus Button
                     onClick={() => {
@@ -139,7 +134,7 @@ export default function ShoppingCart(props: Props) {
                         }
                       }
                     }}
-                    className="inline-block px-3 py-1 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                    className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
                     -
                   </button>
@@ -163,10 +158,12 @@ export default function ShoppingCart(props: Props) {
                         props.setCookie?.(newState);
                       }
                     }}
-                    className="inline-block px-3 py-1 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+                    className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
                   >
                     +
                   </button>
+                </div>
+                <div>
                   <button
                     data-test-id={`cart-product-remove-${robot.id}`}
                     onClick={() => {
@@ -177,36 +174,36 @@ export default function ShoppingCart(props: Props) {
                         console.log(newState);
                       }
                     }}
-                    className="inline-block px-2 ml-3 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+                    className="inline-grid items-end font-fredoka px-2 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out"
                   >
                     Remove
                   </button>
                 </div>
               </div>
-
-              <div className="font-noto absolute bottom-5 right-10">
+              <div className="font-noto inline-grid py-2">
                 Price: {priceForRobotAmount} €
               </div>
             </div>
           );
         })}
 
-        <div className=" relative w-1/2 border border-2 border-solid rounded-lg px-2 py-2 mb-5">
-          <div className="text-white">Your Total</div>
-          <div className="font-noto font-bold absolute bottom-2 top-2 right-10">
+        {/* TOTAL */}
+        <div className="p-6 rounded-lg shadow-lg border-solid border-2 mb-10">
+          <div>
             Total: <span data-test-id="cart-total">{totalPrice}</span> €
           </div>
-        </div>
 
-        <button
-          onClick={() => {
-            router.push('/checkout');
-          }}
-          data-test-id="cart-checkout"
-          className="flex items-end px-3 py-1 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-        >
-          Checkout
-        </button>
+          {/* CHECKOUT */}
+          <button
+            onClick={() => {
+              router.push('/checkout');
+            }}
+            data-test-id="cart-checkout"
+            className="bg-green-700 font-medium text-white text-xs p-3 leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out"
+          >
+            Checkout
+          </button>
+        </div>
       </div>
     </>
   );

@@ -76,77 +76,88 @@ export default function SingleRobot(props: Props) {
         </Link>
       </div>
       {/* div container for the robot that has been found by id in the backend down below */}
-      <div className="grid gap-5 mt-5">
-        <Image
-          src={`/${props.robot.id}-${props.robot.name}.png`}
-          alt={`/${props.robot.name}, the ${props.robot.type}`}
-          data-test-id="product-image"
-          width={300}
-          height={300}
-          className="flex object-scale-down mr-10 basis-2/3"
-        />
-        <div className="basis-1/3 font-noto">
-          <div>Type: {props.robot.type}</div>
-          <div data-test-id="product-price">Price: {props.robot.price} €</div>
-
-          <div>Info: {props.robot.info}</div>
-          {/* Update the quantity: minus */}
+      <div className="grid justify-items-start w-2/3">
+        <div className="grid grid-cols-3 gap-4 mt-5">
           <div>
-            <button
-              onClick={() => {
-                if (quantity > 0) {
-                  setQuantity(quantity - 1);
-                }
-              }}
-              className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-            >
-              -
-            </button>
+            <Image
+              src={`/${props.robot.id}-${props.robot.name}.png`}
+              alt={`/${props.robot.name}, the ${props.robot.type}`}
+              data-test-id="product-image"
+              width={300}
+              height={300}
+              className="flex object-scale-down col-span-1"
+            />
+          </div>
+          <div className="font-noto col-span-2">
+            <div className="mt-2">
+              <span className="font-bold">Type:</span> {props.robot.type}
+            </div>
+            <div data-test-id="product-price" className="mt-2">
+              <span className="font-bold">Price:</span> {props.robot.price} €
+            </div>
 
-            {/* Show the quantity */}
-            <span
-              data-test-id="product-quantity"
-              className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md"
-            >
-              {quantity}
-            </span>
+            <div className="mt-2">
+              <span className="font-bold">Info:</span> {props.robot.info}
+            </div>
+            {/* Update the quantity: minus */}
+            <div className="mt-4">
+              <button
+                onClick={() => {
+                  if (quantity > 0) {
+                    setQuantity(quantity - 1);
+                  }
+                }}
+                className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+              >
+                -
+              </button>
 
-            {/* Update the quantity: plus */}
-            <button
-              onClick={() => {
-                setQuantity(quantity + 1);
-              }}
-              className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-            >
-              +
-            </button>
+              {/* Show the quantity */}
+              <span
+                data-test-id="product-quantity"
+                className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md"
+              >
+                {quantity}
+              </span>
 
+              {/* Update the quantity: plus */}
+              <button
+                onClick={() => {
+                  setQuantity(quantity + 1);
+                }}
+                className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+              >
+                +
+              </button>
+            </div>
             {/* Add the quantity to 'cart' in the cookie */}
-            <button
-              data-test-id="product-add-to-cart"
-              onClick={() => {
-                // if there is no cookie yet, create one and give it the current value of 'quantity'
-                if (!props.cookie) {
-                  const newState = [{ id: props.robot.id, inCart: quantity }];
-                  props.setCookie?.(newState);
-                  // if there is no object in the cookie for this specific robot yet, add one and give it the current value of 'quantity'
-                } else if (!singleRobotCookieObject) {
-                  const newState = [
-                    ...props.cookie,
-                    { id: props.robot.id, inCart: quantity },
-                  ];
-                  props.setCookie?.(newState);
-                  // if an object exists, give it the current value of 'quantity'
-                } else {
-                  const newState = [...props.cookie];
-                  singleRobotCookieObject.inCart = quantity;
-                  props.setCookie?.(newState);
-                }
-              }}
-              className="inline-block px-2 ml-5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-            >
-              Add to cart
-            </button>
+            <div>
+              <button
+                data-test-id="product-add-to-cart"
+                onClick={() => {
+                  // if there is no cookie yet, create one and give it the current value of 'quantity'
+                  if (!props.cookie) {
+                    const newState = [{ id: props.robot.id, inCart: quantity }];
+                    props.setCookie?.(newState);
+                    // if there is no object in the cookie for this specific robot yet, add one and give it the current value of 'quantity'
+                  } else if (!singleRobotCookieObject) {
+                    const newState = [
+                      ...props.cookie,
+                      { id: props.robot.id, inCart: quantity },
+                    ];
+                    props.setCookie?.(newState);
+                    // if an object exists, give it the current value of 'quantity'
+                  } else {
+                    const newState = [...props.cookie];
+                    singleRobotCookieObject.inCart = quantity;
+                    props.setCookie?.(newState);
+                  }
+                }}
+                className="font-fredoka mt-2 bg-green-700 font-medium text-white text-xs p-3 leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out"
+              >
+                Add to cart
+              </button>
+            </div>
           </div>
         </div>
       </div>

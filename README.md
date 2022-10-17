@@ -18,17 +18,18 @@ It has a homepage greeting the customers. In the header is a nav bar with a shop
 
 When you navigate to 'Our robots' in the header, you see a grid, including all the available robots and their names (coming from a postgres database). On clicking on a robot, you will be directed to the page of the chosen robot (a dynamic route, defined as the id from the database).
 
-![screenshot of the Our robots page](./Mockup_EcommerceStore.png)
+![screenshot of the Our robots page](./all-robots.png)
 
 ### Single Robot (dynamic route)
 
 Here you can see a description, the price, the id and the name of the robot. When clicking on the +/- button, the quantity in the field between the buttons changes (only positive values). The number of robots will only be added to your shopping cart, when you click on the 'Add to cart' button next to the +/- buttons.
+![screenshot of quantity and add to cart buttons](./single-robot.png)
 
 When you click on 'Back to all robots', you can choose another robot on the 'Our robots' page. The scrolling position on the 'Our robots' page will be the same as when you left it to go to a single robot.
 
 When you choose more robots, they will be added to the existing cart. When you are done, you can click on the 'Shopping cart' in the top right corner with the quantity of chosen robots to see your robots and to check out.
 
-#### Putting in a non-existant number in the route
+#### Putting in a non-existent ID in the URL
 
 If you put an id into the route, that does not exist in the database, an error page will be shown. From here you can go back to the 'Our robots' page.
 
@@ -57,6 +58,10 @@ When clicking the checkout button, you are redirected to a thank you page and al
 - Excalidraw
 
 ## Setup Instructions
+
+To set up the project on a new computer, the ley package is needed for the migration of the Postgres database. It stores the robots, sold at the ecommerce store, including their name, type, price and info (aka description).
+
+Run "yarn migrate up" (or a different package manager) to load the migration files stored in the folder 'migrations'.
 
 ## Deployment Instructions
 

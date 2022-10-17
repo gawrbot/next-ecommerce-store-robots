@@ -78,8 +78,11 @@ export default function Checkout(props: Props) {
         <meta name="description" content="Checkout page" />
       </Head>
       <h1 className="text-5xl font-bold mt-0 mb-6">Checkout</h1>
-      <div className="flex flex-col items-center">
-        <h2>Order Overview</h2>
+
+      {/* ORDER OVERVIEW */}
+      <div className="grid p-6 rounded-lg shadow-lg border-solid border-2 mb-10">
+        <h2 className="text-2xl mb-5">Order Overview</h2>
+
         {chosenRobotsList.map((robot) => {
           const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
             return singleRobot.id === robot.id;
@@ -93,47 +96,38 @@ export default function Checkout(props: Props) {
             Number(robot.price) * singleRobotCookieObject.inCart;
 
           return (
-            <div
-              key={robot.id}
-              data-test-id={`cart-product-${robot.id}`}
-              className="inline-flex relative w-1/2 border border-2 border-solid rounded-lg px-2 py-3 mb-5"
-            >
-              <div className="font-noto mr-2 py-2 pl-3">
+            <div key={robot.id} data-test-id={`cart-product-${robot.id}`}>
+              <div>
                 <Link href={`/robots/${robot.id}`}>
-                  <h2 className="text-xl font-bold font-fredoka hover:cursor-pointer">
+                  <h3 className="text-xl font-bold font-fredoka hover:cursor-pointer">
                     {robot.name}
-                  </h2>
+                  </h3>
                 </Link>
-                <div className="text-xs">Id: {robot.id}</div>
-
-                {/* Show value of inCart */}
               </div>
 
-              <div className="font-noto absolute bottom-5 right-10">
+              <div className="mb-3 font-noto">
                 Price: {priceForRobotAmount} €
               </div>
             </div>
           );
         })}
-        <div className="inline-flex w-1/2 relative px-2 py-2 mb-5">
-          <div className="text-white">Your Total</div>
-          <div className="font-noto font-bold absolute bottom-2 top-2 right-10">
+        <div>
+          <div className="text-xl pt-2 mt-5 border-t-2">
             Total: <span data-test-id="cart-total">{totalPrice}</span> €
           </div>
         </div>
       </div>
 
       {/* FORM */}
-      <div className="grid grid-cols-2 p-6 rounded-lg shadow-lg border-solid border-2 max-w-sm">
+      <div className="grid p-6 rounded-lg shadow-lg border-solid border-2">
         <form
-          className=""
           onSubmit={(event) => {
             event.preventDefault();
           }}
         >
           <h2 className="text-2xl mb-5">Shipping Address</h2>
           <div className="form-group mb-6">
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               First Name
               <input
                 data-test-id="checkout-first-name"
@@ -145,7 +139,7 @@ export default function Checkout(props: Props) {
               />
             </label>
 
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               Last Name
               <input
                 data-test-id="checkout-last-name"
@@ -156,7 +150,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               E-Mail
               <input
                 data-test-id="checkout-email"
@@ -167,7 +161,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               Address
               <input
                 data-test-id="checkout-address"
@@ -178,7 +172,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               Postal Code
               <input
                 data-test-id="checkout-postal-code"
@@ -189,7 +183,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               City
               <input
                 data-test-id="checkout-city"
@@ -200,7 +194,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               Country
               <input
                 data-test-id="checkout-country"
@@ -215,7 +209,7 @@ export default function Checkout(props: Props) {
 
           <h2 className="text-2xl mb-5">Payment Info</h2>
           <div className="form-group mb-6">
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               Credit Card
               <input
                 data-test-id="checkout-credit-card"
@@ -226,7 +220,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               Expiration Date
               <input
                 data-test-id="checkout-expiration-date"
@@ -237,7 +231,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
-            <label className="form-label inline-block mb-2">
+            <label className="form-label inline-block mb-2 mr-3">
               Security Code{' '}
               <input
                 data-test-id="checkout-security-code"
@@ -272,7 +266,7 @@ export default function Checkout(props: Props) {
               deleteCookie('cart');
               router.push('/thankyou');
             }}
-            className="bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md disabled:opacity-75 hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+            className="bg-green-700 font-medium text-white text-xs p-3 disabled:bg-slate-600 leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out"
           >
             Confirm Order
           </button>
