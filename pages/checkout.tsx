@@ -29,7 +29,7 @@ export default function Checkout(props: Props) {
   const [securityCode, setSecurityCode] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
 
-  if (!props.robots || !chosenRobotsCookies) {
+  if (!props.robots || typeof chosenRobotsCookies === 'undefined') {
     return (
       <div>
         <Head>
@@ -52,16 +52,16 @@ export default function Checkout(props: Props) {
 
   const chosenRobotsList = props.robots.filter((robot) => {
     return chosenRobotsCookies.some((cookie) => {
-      return cookie?.id === robot.id && cookie.inCart > 0;
+      return cookie.id === robot.id && cookie.inCart > 0;
     });
   });
 
   const allPrices = chosenRobotsList.map((robot) => {
     const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-      return singleRobot?.id === robot.id;
+      return singleRobot.id === robot.id;
     });
     if (!singleRobotCookieObject) {
-      return;
+      return null;
     }
     const price = Number(robot.price) * singleRobotCookieObject.inCart;
     return price;
@@ -89,7 +89,7 @@ export default function Checkout(props: Props) {
           });
 
           if (!singleRobotCookieObject) {
-            return;
+            return null;
           }
 
           const priceForRobotAmount =
@@ -265,7 +265,7 @@ export default function Checkout(props: Props) {
               const newState: [] = [];
               props.setCookie?.(newState);
               deleteCookie('cart');
-              router.push('/thankyou');
+              router.push('/thankyou').catch(() => {});
             }}
             className="bg-green-700 font-medium text-white text-xs p-3 disabled:bg-slate-600 leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out"
           >

@@ -58,7 +58,7 @@ export default function ShoppingCart(props: Props) {
       return singleRobot?.id === robot.id;
     });
     if (!singleRobotCookieObject) {
-      return;
+      return null;
     }
     return Number(robot.price) * singleRobotCookieObject.inCart;
   });
@@ -85,7 +85,7 @@ export default function ShoppingCart(props: Props) {
             return singleRobot?.id === robot.id;
           });
           if (!singleRobotCookieObject) {
-            return;
+            return null;
           }
           const priceForRobotAmount =
             Number(robot.price) * singleRobotCookieObject.inCart;
@@ -196,7 +196,7 @@ export default function ShoppingCart(props: Props) {
           {/* CHECKOUT */}
           <button
             onClick={() => {
-              router.push('/checkout');
+              router.push('/checkout').catch(() => {});
             }}
             className="bg-green-700 font-medium text-white text-xs p-3 leading-tight uppercase rounded shadow-md hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-900 active:shadow-lg transition duration-150 ease-in-out"
           >
