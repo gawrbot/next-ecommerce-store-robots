@@ -93,10 +93,8 @@ export default function SingleRobot(props: Props) {
               <span className="font-bold">Type:</span> {props.robot.type}
             </div>
             <div className="mt-2">
-              <span data-test-id="product-price" className="font-bold">
-                Price:
-              </span>{' '}
-              {props.robot.price} €
+              <span className="font-bold">Price:</span>{' '}
+              <span data-test-id="product-price">{props.robot.price}</span> €
             </div>
 
             <div className="mt-2">
