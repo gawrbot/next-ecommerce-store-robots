@@ -21,6 +21,20 @@ type Props =
 export default function SingleRobot(props: Props) {
   const [quantity, setQuantity] = useState(Number);
 
+  // Get the robots cookie with the robots id
+  const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
+    return singleRobot.id === props.robot.id;
+  });
+
+  // On every change of the single robots cookie value, get the value and set it to 'quantity' or set the quantity to 0
+  useEffect(() => {
+    if (singleRobotCookieObject) {
+      setQuantity(singleRobotCookieObject.inCart);
+    } else {
+      setQuantity(0);
+    }
+  }, [singleRobotCookieObject]);
+
   // Show error page if id is not in the database
   if ('error' in props) {
     return (
@@ -41,20 +55,6 @@ export default function SingleRobot(props: Props) {
       </div>
     );
   } else if ('robot' in props) {
-    // Get the robots cookie with the robots id
-    const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-      return singleRobot.id === props.robot.id;
-    });
-
-    // on first render, get the current value of 'cart' of this robots cookie to show it in the 'quantity' or set the quantity to 0
-    useEffect(() => {
-      if (singleRobotCookieObject) {
-        setQuantity(singleRobotCookieObject.inCart);
-      } else {
-        setQuantity(0);
-      }
-    }, [singleRobotCookieObject]);
-
     return (
       <div>
         <Head>

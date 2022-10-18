@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import { getRobots, Robot } from '../database/robots';
 
-type Cookie = { id: number; inCart: number } | undefined;
+type Cookie = { id: number; inCart: number };
 
 type Props = {
   robots: Robot[];
@@ -17,7 +17,12 @@ export default function ShoppingCart(props: Props) {
   const chosenRobotsCookies = props.cookie;
   const router = useRouter();
 
-  if (!props.robots || !chosenRobotsCookies) {
+  if (
+    typeof chosenRobotsCookies === 'undefined' ||
+    chosenRobotsCookies.every((cookie) => {
+      return cookie.inCart <= 0;
+    })
+  ) {
     return (
       <div>
         <Head>
@@ -39,19 +44,19 @@ export default function ShoppingCart(props: Props) {
   }
 
   const chosenRobotsList = props.robots.filter((robot) => {
-    return chosenRobotsCookies?.some((cookie) => {
+    return chosenRobotsCookies.some((cookie) => {
       return cookie?.id === robot.id && cookie.inCart > 0;
     });
   });
 
-  if (!props.robots || !chosenRobotsCookies) {
-    return (
-      <div>
-        <h1 className="text-5xl font-bold mt-0 mb-6">Checkout</h1>
-        <div>Nothing here yet!</div>
-      </div>
-    );
-  }
+  // if (!props.robots || !chosenRobotsCookies) {
+  //   return (
+  //     <div>
+  //       <h1 className="text-5xl font-bold mt-0 mb-6">Checkout</h1>
+  //       <div>Nothing here yet!</div>
+  //     </div>
+  //   );
+  // }
 
   const allPrices = chosenRobotsList.map((robot) => {
     const singleRobotCookieObject = props.cookie?.find((singleRobot) => {

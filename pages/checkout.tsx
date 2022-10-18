@@ -31,7 +31,7 @@ export default function Checkout(props: Props) {
 
   if (
     typeof chosenRobotsCookies === 'undefined' ||
-    chosenRobotsCookies?.every((cookie) => {
+    chosenRobotsCookies.every((cookie) => {
       return cookie.inCart <= 0;
     })
   ) {
@@ -56,7 +56,7 @@ export default function Checkout(props: Props) {
   }
 
   const chosenRobotsList = props.robots.filter((robot) => {
-    return chosenRobotsCookies?.some((cookie) => {
+    return chosenRobotsCookies.some((cookie) => {
       return cookie.id === robot.id && cookie.inCart > 0;
     });
   });
