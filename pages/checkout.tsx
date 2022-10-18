@@ -29,7 +29,12 @@ export default function Checkout(props: Props) {
   const [securityCode, setSecurityCode] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
 
-  if (!props.robots || typeof chosenRobotsCookies === 'undefined') {
+  if (
+    typeof chosenRobotsCookies === 'undefined' ||
+    chosenRobotsCookies?.every((cookie) => {
+      return cookie.inCart <= 0;
+    })
+  ) {
     return (
       <div>
         <Head>
@@ -51,7 +56,7 @@ export default function Checkout(props: Props) {
   }
 
   const chosenRobotsList = props.robots.filter((robot) => {
-    return chosenRobotsCookies.some((cookie) => {
+    return chosenRobotsCookies?.some((cookie) => {
       return cookie.id === robot.id && cookie.inCart > 0;
     });
   });
@@ -111,6 +116,7 @@ export default function Checkout(props: Props) {
             </div>
           );
         })}
+
         <div>
           <div className="text-xl pt-2 mt-5 border-t-2">
             Total: <span data-test-id="cart-total">{totalPrice}</span> €
