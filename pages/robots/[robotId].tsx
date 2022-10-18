@@ -101,7 +101,7 @@ export default function SingleRobot(props: Props) {
               <span className="font-bold">Info:</span> {props.robot.info}
             </div>
             {/* Update the quantity: minus */}
-            <div className="mt-4">
+            <div data-test-id="product-quantity" className="mt-4">
               <button
                 onClick={() => {
                   if (quantity > 0) {
@@ -114,10 +114,7 @@ export default function SingleRobot(props: Props) {
               </button>
 
               {/* Show the quantity */}
-              <span
-                data-test-id="product-quantity"
-                className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md"
-              >
+              <span className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md">
                 {quantity}
               </span>
 
