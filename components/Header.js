@@ -6,24 +6,24 @@ export default function Header(props) {
   }, 0);
 
   return (
-    <header className="sticky top-0 w-full font-fredoka text-black z-10">
-      <nav className="shadow-md py-7 px-10 bg-white relative flex items-center space-around font-bold">
-        <div className="relative mr-10">
-          <Link
-            href="/"
-            className="text-gray-600 hover:text-gray-700 transition duration-150 ease-in-out"
-          >
-            Home
-          </Link>
-        </div>
+    <header className="sticky top-0 w-full font-fredoka text-black z-10 shadow-md py-7 px-10 bg-white relative flex items-center space-around font-bold">
+      <div className="relative mr-10">
+        <Link
+          href="/"
+          className="text-gray-600 hover:text-gray-700 transition duration-150 ease-in-out"
+        >
+          Home
+        </Link>
+      </div>
+      <div className="relative">
         <Link
           href="/robots"
           className="text-gray-600 hover:text-gray-700 transition duration-150 ease-in-out"
         >
-          <a data-test-id="products-link">
-            <div className="relative">Our Robots </div>
-          </a>
+          <a data-test-id="products-link">Our Robots</a>
         </Link>
+      </div>
+      <div>
         <Link href="/shopping-cart">
           <a data-test-id="cart-link">
             <div className="absolute right-12 top-5 w-10 h-10 hover:cursor-pointer">
@@ -36,7 +36,7 @@ export default function Header(props) {
             </div>
           </a>
         </Link>
-      </nav>
+      </div>
     </header>
   );
 }
