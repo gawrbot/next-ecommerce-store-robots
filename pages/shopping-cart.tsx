@@ -164,7 +164,6 @@ export default function ShoppingCart(props: Props) {
                         const newState: Cookie[] = [...props.cookie];
                         singleRobotCookieObject.inCart = 0;
                         props.setCookie?.(newState);
-                        console.log(newState);
                       }
                     }}
                     className="inline-grid items-end font-fredoka px-2 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out"

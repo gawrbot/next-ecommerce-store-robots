@@ -20,16 +20,16 @@ type Props =
 
 export default function SingleRobot(props: Props) {
   const [quantity, setQuantity] = useState(Number);
-  // const [singleRobotCookieObject, setsingleRobotCookieObject] = useState()
 
-  // Get the robots cookie with the robots id
+  // GET COOKIE OBJECT
+  // Define cookie either as props.cookie (if cookie exists) or define it as an empty object (same with robot in the next declaration)
   const cookie =
     'cookie' in props ? props.cookie : ({} as { [key: string]: undefined });
 
   const robot =
     'robot' in props ? props.robot : ({} as { [key: string]: undefined });
-  console.log('cookie', cookie);
 
+  // Get the cookie object for the specific robot and for that check if the variable cookie is an array
   const singleRobotCookieObject =
     Array.isArray(cookie) &&
     cookie.find((singleRobot) => {
