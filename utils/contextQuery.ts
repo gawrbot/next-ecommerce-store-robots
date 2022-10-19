@@ -3,5 +3,5 @@ export async function parseIntFromContextQuery(
 ) {
   if (!query || Array.isArray(query)) return undefined;
   if (query === 'string') return query;
-  return parseInt(query);
+  return await parseInt(query);
 }

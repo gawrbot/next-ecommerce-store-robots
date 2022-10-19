@@ -20,13 +20,21 @@ type Props =
 
 export default function SingleRobot(props: Props) {
   const [quantity, setQuantity] = useState(Number);
-
-  console.log('props', props);
+  // const [singleRobotCookieObject, setsingleRobotCookieObject] = useState()
 
   // Get the robots cookie with the robots id
-  const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-    return singleRobot.id === props.robot.id;
-  });
+  const cookie =
+    'cookie' in props ? props.cookie : ({} as { [key: string]: undefined });
+
+  const robot =
+    'robot' in props ? props.robot : ({} as { [key: string]: undefined });
+  console.log('cookie', cookie);
+
+  const singleRobotCookieObject =
+    Array.isArray(cookie) &&
+    cookie.find((singleRobot) => {
+      return singleRobot.id === robot.id;
+    });
 
   // On every change of the single robots cookie value, get the value and set it to 'quantity' or set the quantity to 0
   useEffect(() => {
