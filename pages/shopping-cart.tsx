@@ -45,22 +45,13 @@ export default function ShoppingCart(props: Props) {
 
   const chosenRobotsList = props.robots.filter((robot) => {
     return chosenRobotsCookies.some((cookie) => {
-      return cookie?.id === robot.id && cookie.inCart > 0;
+      return cookie.id === robot.id && cookie.inCart > 0;
     });
   });
 
-  // if (!props.robots || !chosenRobotsCookies) {
-  //   return (
-  //     <div>
-  //       <h1 className="text-5xl font-bold mt-0 mb-6">Checkout</h1>
-  //       <div>Nothing here yet!</div>
-  //     </div>
-  //   );
-  // }
-
   const allPrices = chosenRobotsList.map((robot) => {
     const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-      return singleRobot?.id === robot.id;
+      return singleRobot.id === robot.id;
     });
     if (!singleRobotCookieObject) {
       return null;
@@ -84,7 +75,7 @@ export default function ShoppingCart(props: Props) {
       <div className="grid justify-items-start">
         {chosenRobotsList.map((robot) => {
           const singleRobotCookieObject = props.cookie?.find((singleRobot) => {
-            return singleRobot?.id === robot.id;
+            return singleRobot.id === robot.id;
           });
           if (!singleRobotCookieObject) {
             return null;
@@ -146,7 +137,7 @@ export default function ShoppingCart(props: Props) {
                     data-test-id={`cart-product-quantity-${robot.id}`}
                     className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md"
                   >
-                    {singleRobotCookieObject
+                    {singleRobotCookieObject.inCart > 0
                       ? singleRobotCookieObject.inCart
                       : 0}
                   </span>
