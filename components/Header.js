@@ -1,10 +1,9 @@
 import Link from 'next/link';
 
 export default function Header(props) {
-  const robotsInCart =
-    props.cookie?.reduce((prevRobot, currRobot) => {
-      return currRobot.inCart + prevRobot;
-    }, 0) || 0;
+  const robotsInCart = props.cookie?.reduce((prevRobot, currRobot) => {
+    return currRobot.inCart + prevRobot;
+  }, 0);
 
   return (
     <header className="sticky top-0 w-full font-fredoka text-black z-10">
@@ -33,7 +32,9 @@ export default function Header(props) {
         <Link href="/shopping-cart">
           <a data-test-id="cart-link">
             <div className="absolute right-9 top-9 flex items-center justify-center rounded-full px-2 py-2 bg-pink-600/[.85] text-white hover:cursor-pointer w-8 h-8">
-              <span data-test-id="cart-count">{robotsInCart}</span>
+              <span data-test-id="cart-count">
+                {robotsInCart > 0 ? robotsInCart : 0}
+              </span>
             </div>
           </a>
         </Link>
