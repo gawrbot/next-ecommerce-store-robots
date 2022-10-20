@@ -109,38 +109,20 @@ export default function SingleRobot(props: Props) {
             <div className="mt-2">
               <span className="font-bold">Info:</span> {props.robot.info}
             </div>
-            {/* Update the quantity: minus */}
+            {/* Quantity */}
             <div className="mt-4">
-              <button
-                onClick={() => {
-                  if (quantity > 1) {
-                    setQuantity(quantity - 1);
-                  }
-                }}
-                className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-              >
-                -
-              </button>
-
               <input
                 data-test-id="product-quantity"
                 value={quantity}
-                className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md w-10 text-center"
-                disabled
+                type="number"
+                min="1"
+                className="inline-block p-3 font-medium text-xs leading-tight uppercase rounded border shadow-md w-20 text-center mr-2"
+                onChange={(event) => {
+                  setQuantity(event.currentTarget.valueAsNumber);
+                }}
               />
 
-              {/* Update the quantity: plus */}
-              <button
-                onClick={() => {
-                  setQuantity(quantity + 1);
-                }}
-                className="inline-block px-3 py-1 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-              >
-                +
-              </button>
-            </div>
-            {/* Add the quantity to 'cart' in the cookie */}
-            <div>
+              {/* Add the quantity to 'cart' in the cookie */}
               <button
                 data-test-id="product-add-to-cart"
                 onClick={() => {
