@@ -10,7 +10,7 @@ A sketch, made with Excalidraw, to help me envision my project.
 
 It has a homepage greeting the customers. In the header is a nav bar with a shopping cart icon on the right side, that includes the number of products, that have been added to the cart, and a footer describing the 'company'.
 
-![Ecommerce store sketch](./Mockup_EcommerceStore.png)
+![Ecommerce store sketch](./screenshot_sketch.png)
 
 ### Description: Walkthrough
 
@@ -18,12 +18,12 @@ It has a homepage greeting the customers. In the header is a nav bar with a shop
 
 When you navigate to 'Our robots' in the header, you see a grid, including all the available robots and their names (coming from a postgres database). On clicking on a robot, you will be directed to the page of the chosen robot (a dynamic route, defined as the id from the database).
 
-![screenshot of the Our robots page](./all-robots.png)
+![screenshot of the Our robots page](./screenshot_all-robots.png)
 
 ### Single Robot (dynamic route)
 
 Here you can see a description, the price, the id and the name of the robot. When clicking on the +/- button, the quantity in the field between the buttons changes (only positive values). The number of robots will only be added to your shopping cart, when you click on the 'Add to cart' button next to the +/- buttons.
-![screenshot of quantity and add to cart buttons](./single-robot.png)
+![screenshot of quantity and add to cart buttons](./screenshot_licorice_id3.png)
 
 When you click on 'Back to all robots', you can choose another robot on the 'Our robots' page. The scrolling position on the 'Our robots' page will be the same as when you left it to go to a single robot.
 
