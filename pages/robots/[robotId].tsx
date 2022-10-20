@@ -111,7 +111,7 @@ export default function SingleRobot(props: Props) {
             <div className="mt-4">
               <button
                 onClick={() => {
-                  if (quantity > 0) {
+                  if (quantity > 1) {
                     setQuantity(quantity - 1);
                   }
                 }}
@@ -122,7 +122,7 @@ export default function SingleRobot(props: Props) {
 
               <input
                 data-test-id="product-quantity"
-                value={quantity > 0 ? quantity : 0}
+                value={quantity > 1 ? quantity : 1}
                 className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md w-10 text-center"
                 disabled
               />

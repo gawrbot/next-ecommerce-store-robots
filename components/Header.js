@@ -33,7 +33,7 @@ export default function Header(props) {
               <img alt="robot icon" src="/robot (1).png" />
             </div>
             <div className="absolute right-9 top-9 flex items-center justify-center rounded-full px-2 py-2 bg-pink-600/[.85] text-white hover:cursor-pointer w-8 h-8">
-              <span>{robotsInCart > 1 ? robotsInCart : 1}</span>
+              <span>{robotsInCart > 0 ? robotsInCart : 0}</span>
             </div>
           </a>
         </Link>
