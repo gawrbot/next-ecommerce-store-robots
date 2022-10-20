@@ -40,6 +40,8 @@ export default function SingleRobot(props: Props) {
   useEffect(() => {
     if (singleRobotCookieObject) {
       setQuantity(singleRobotCookieObject.inCart);
+    } else {
+      setQuantity(1);
     }
   }, [singleRobotCookieObject]);
 
@@ -122,13 +124,10 @@ export default function SingleRobot(props: Props) {
 
               <input
                 data-test-id="product-quantity"
-                value={quantity > 1 ? quantity : 1}
+                value={quantity}
                 className="inline-block px-3 py-1 font-medium text-xs leading-tight uppercase rounded shadow-md w-10 text-center"
                 disabled
               />
-
-              {/* Show the quantity */}
-              <span>{}</span>
 
               {/* Update the quantity: plus */}
               <button
