@@ -6,7 +6,10 @@ export default function Header(props) {
   }, 0);
 
   return (
-    <header className="sticky top-0 w-full font-fredoka text-black z-10 shadow-md py-7 px-10 bg-white relative flex items-center space-around font-bold">
+    <header
+      data-test-id="cart-count"
+      className="sticky top-0 w-full font-fredoka text-black z-10 shadow-md py-7 px-10 bg-white relative flex items-center space-around font-bold"
+    >
       <div className="relative mr-10">
         <Link
           href="/"
@@ -30,9 +33,7 @@ export default function Header(props) {
               <img alt="robot icon" src="/robot (1).png" />
             </div>
             <div className="absolute right-9 top-9 flex items-center justify-center rounded-full px-2 py-2 bg-pink-600/[.85] text-white hover:cursor-pointer w-8 h-8">
-              <span data-test-id="cart-count">
-                {robotsInCart > 0 ? robotsInCart : 0}
-              </span>
+              <span>{robotsInCart > 1 ? robotsInCart : 1}</span>
             </div>
           </a>
         </Link>
