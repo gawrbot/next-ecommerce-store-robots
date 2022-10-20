@@ -156,6 +156,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
+
             <label className="form-label inline-block mb-2 mr-3">
               E-Mail
               <input
@@ -167,6 +168,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
+
             <label className="form-label inline-block mb-2 mr-3">
               Address
               <input
@@ -178,6 +180,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
+
             <label className="form-label inline-block mb-2 mr-3">
               Postal Code
               <input
@@ -189,6 +192,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
+
             <label className="form-label inline-block mb-2 mr-3">
               City
               <input
@@ -200,6 +204,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
+
             <label className="form-label inline-block mb-2 mr-3">
               Country
               <input
@@ -226,6 +231,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
+
             <label className="form-label inline-block mb-2 mr-3">
               Expiration Date
               <input
@@ -237,6 +243,7 @@ export default function Checkout(props: Props) {
                 }}
               />
             </label>
+
             <label className="form-label inline-block mb-2 mr-3">
               Security Code{' '}
               <input

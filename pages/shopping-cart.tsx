@@ -17,12 +17,7 @@ export default function ShoppingCart(props: Props) {
   const chosenRobotsCookies = props.cookie;
   const router = useRouter();
 
-  if (
-    typeof chosenRobotsCookies === 'undefined' ||
-    chosenRobotsCookies.every((cookie) => {
-      return cookie.inCart <= 0;
-    })
-  ) {
+  if (typeof chosenRobotsCookies === 'undefined') {
     return (
       <div>
         <Head>
