@@ -25,7 +25,7 @@ test('navigation test', async ({ page }) => {
 
   // ..., change quantity...
   await page.locator('[data-test-id="product-quantity"]').press('Delete');
-  await page.locator('[data-test-id="product-quantity"]').fill('5');
+  await page.locator('[data-test-id="product-quantity"]').fill('2');
   await page.locator('button', { hasText: 'Add to cart' }).click();
   await expect(page.locator('[data-test-id="cart-count"]')).toHaveText('5');
 

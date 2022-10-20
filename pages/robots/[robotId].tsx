@@ -140,7 +140,8 @@ export default function SingleRobot(props: Props) {
                     // if an object exists, give it the current value of 'quantity'
                   } else {
                     const newState = [...props.cookie];
-                    singleRobotCookieObject.inCart = quantity;
+                    singleRobotCookieObject.inCart =
+                      singleRobotCookieObject.inCart + quantity;
                     props.setCookie?.(newState);
                   }
                 }}
