@@ -18,12 +18,14 @@ test('navigation test', async ({ page }) => {
   await expect(page).toHaveURL('http://localhost:3000/robots/1');
 
   // E2E: Add to cart...
-  await page.locator('button', { hasText: '+' }).click({ clickCount: 2 });
+  await page.locator('[data-test-id="product-quantity"]').press('Delete');
+  await page.locator('[data-test-id="product-quantity"]').fill('3');
   await page.locator('button', { hasText: 'Add to cart' }).click();
   await expect(page.locator('[data-test-id="cart-count"]')).toHaveText('3');
 
   // ..., change quantity...
-  await page.locator('button', { hasText: '+' }).click({ clickCount: 2 });
+  await page.locator('[data-test-id="product-quantity"]').press('Delete');
+  await page.locator('[data-test-id="product-quantity"]').fill('5');
   await page.locator('button', { hasText: 'Add to cart' }).click();
   await expect(page.locator('[data-test-id="cart-count"]')).toHaveText('5');
 
@@ -44,7 +46,8 @@ test('navigation test 2', async ({ page }) => {
   await page.goto('http://localhost:3000/robots/1');
 
   // Add to cart...
-  await page.locator('button', { hasText: '+' }).click({ clickCount: 1 });
+  await page.locator('[data-test-id="product-quantity"]').press('Delete');
+  await page.locator('[data-test-id="product-quantity"]').fill('2');
   await page.locator('button', { hasText: 'Add to cart' }).click();
   await expect(page.locator('[data-test-id="cart-count"]')).toHaveText('2');
 
